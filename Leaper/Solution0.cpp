@@ -42,7 +42,7 @@ int main()
 	IntNode::Ptr node2 = IntNode::MakeNode(2, node3); // 2->3
 	IntNode::Ptr node1 = IntNode::MakeNode(1, node2); // 1->2
 	bool bRet1 = Solution(node1);  // 传入链表头节点node1的地址
-	std::cout << "Result 1 is " << bRet1 << std::endl;
+	std::cout << "Result 1 is " << bRet1 << std::endl;// bRet1结果应该为false
 
 	/* 例2 */
 	IntNode::Ptr node9 = IntNode::MakeNode(9, nullptr); // 9
@@ -51,12 +51,14 @@ int main()
 	IntNode::Ptr node6 = IntNode::MakeNode(6, node7); // 6->7		
 	node9->SetNext(node7);  // 9->7
 	bool bRet2 = Solution(node6);  // 传入链表头节点node6的地址
-	std::cout << "Result 2 is " << bRet2;
+	std::cout << "Result 2 is " << bRet2;// bRet2结果应该为true
 }
 
 bool Solution(IntNode::Ptr headPtr)
 {
-
+	//方案一: 遍历的同时使用哈希表记录节点的地址,若重复则返回 True,					空间复杂度 O(n),时间复杂度 O(n)
+	//方案二: 创建链表的同时记录链表节点数量, 若遍历链表步数大于节点数则返回 True,	空间复杂度 O(1), 时间复杂度 O(n)
+	//方案三: 使用快慢指针, 若慢指针和快指针重叠则返回 True,						空间复杂度 O(1), 时间复杂度 O(n)
 	return false;
 }
 
