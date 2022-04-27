@@ -8,6 +8,7 @@
 * 设计一个 NodeList 类，用于 Node 链表的 CRUD，并在修改链表时查环。
 * 注意：不要重复对未修改的链表段进行检查。
 */
+#ifdef DEBUG
 
 #include <iostream>
 #include <memory>
@@ -83,3 +84,5 @@ bool Solution(IntNode::Ptr headPtr)
 	/**!!!!!!!!!!!!!!!!!!!!!!!!**/
 	return false;
 }
+
+#endif

@@ -1,10 +1,3 @@
-﻿/*! 感谢您参与利珀科技笔试，题目说明如下：
-* [Q1]
-* 假定mat中的每一个子 vector 都拥有相同的 size，请回答以下问题：
-* 1. Solution() 函数实现了什么功能
-* 2. 此函数的实现方式有什么问题
-* 3. 如何对此函数进行优化，完成相关编码
-*/
 #ifdef DEBUG
 
 #include <iostream>
@@ -39,18 +32,8 @@ int main()
 	std::cout << "Result2 is " << res1 << std::endl;
 }
 
-/*! Solution 函数
-* @param mat
-* @param nStartRow
-* @param nStartCol
-* @retval
-*/
 int Solution(vector<vector<int>>& mat, int nStartRow, int nStartCol)
 {
-	/**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!**/
-	/* 请阅读此函数，并回答文件开头出提出的 3 个问题。*/
-	/**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!**/
-
 	if (mat.size() <= 0) {
 		return 0;
 	}
@@ -80,4 +63,4 @@ int Solution(vector<vector<int>>& mat, int nStartRow, int nStartCol)
 	return res;
 }
 
-#endif
+#endif // DEBUG

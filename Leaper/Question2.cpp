@@ -6,6 +6,21 @@
 *       3.可以使用动画，也可以使用计时器与移动结合或其他的方式，只要能实现最终效果
 *       4.可以求助于 Qt 帮助文档和网络，但不能直接使用网上的代码
 */
+#ifdef DEBUG
 
 #include <QGraphicView>
 #include <QGraphicsScene>
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif // DEBUG

@@ -11,6 +11,7 @@
 *      此情况下该前序节点视作已被执行过。
 * 注2：节点的数量大概在1~1000个。
 */
+#ifdef DEBUG
 
 #include <iostream>
 #include <list>
@@ -81,3 +82,5 @@ list<int> Nodes::Solution()
 	/**!!!!!!!!!!!!!!!!!!!!!!!!**/
 	return list<int>();
 }
+
+#endif

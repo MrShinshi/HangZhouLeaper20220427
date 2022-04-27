@@ -139,11 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Leaper.cpp" />
+    <ClCompile Include="Solution0.cpp" />
     <ClCompile Include="Question0.cpp" />
     <ClCompile Include="Question1.cpp" />
     <ClCompile Include="Question2.cpp" />
     <ClCompile Include="Question3.cpp" />
+    <ClCompile Include="Solution1.cpp" />
+    <ClCompile Include="Solution2.cpp" />
+    <ClCompile Include="Solution3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.md" />

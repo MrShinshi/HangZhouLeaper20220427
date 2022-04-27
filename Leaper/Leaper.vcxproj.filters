@@ -11,7 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Leaper.cpp">
+    <ClCompile Include="Solution0.cpp">
       <Filter>Solution</Filter>
     </ClCompile>
     <ClCompile Include="Question0.cpp">
@@ -25,6 +25,15 @@
     </ClCompile>
     <ClCompile Include="Question3.cpp">
       <Filter>Question</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution1.cpp">
+      <Filter>Solution</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution2.cpp">
+      <Filter>Solution</Filter>
+    </ClCompile>
+    <ClCompile Include="Solution3.cpp">
+      <Filter>Solution</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
