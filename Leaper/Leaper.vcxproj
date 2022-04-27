@@ -139,11 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Documents\Leaper\Question\Question0.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\Leaper\Question\Question1.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\Leaper\Question\Question2.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\Leaper\Question\Question3.cpp" />
     <ClCompile Include="Leaper.cpp" />
+    <ClCompile Include="Question0.cpp" />
+    <ClCompile Include="Question1.cpp" />
+    <ClCompile Include="Question2.cpp" />
+    <ClCompile Include="Question3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
