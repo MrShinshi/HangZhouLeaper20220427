@@ -1,11 +1,12 @@
-﻿/*! 感谢您参与利珀科技笔试，题目说明如下：
+﻿#ifdef DEBUG
+
+/*! 感谢您参与利珀科技笔试，题目说明如下：
 * [Q1]
 * 假定mat中的每一个子 vector 都拥有相同的 size，请回答以下问题：
 * 1. Solution() 函数实现了什么功能
 * 2. 此函数的实现方式有什么问题
 * 3. 如何对此函数进行优化，完成相关编码
 */
-#ifdef DEBUG
 
 #include <iostream>
 #include <vector>

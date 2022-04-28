@@ -1,17 +1,21 @@
+#define DEBUG
 #ifdef DEBUG
 
 #include <iostream>
 #include <list>
 #include <vector>
+#include <unordered_map>
+#include <algorithm>
 
 using std::list;
 using std::vector;
+using std::unordered_map;
 
 struct Node
 {
-	int nId;  // 节点的ID，每个节点独一无二，且必大于0
-	int nPre1;  // 节点所依赖的类型1前序节点，若此节点没有该类型的前序节点，则为-1
-	int nPre2;  // 节点所依赖的类型2前序节点，若此节点没有该类型的前序节点，则为-1
+	int nId;
+	int nPre1;
+	int nPre2;
 
 	Node(int id, int pre1, int pre2) : nId(id), nPre1(pre1), nPre2(pre2) {}
 };
@@ -52,8 +56,20 @@ int main()
 
 list<int> Nodes::Solution()
 {
+	unordered_map<int, std::pair<int, int>> dict;
+	list<int> res;
+	int size = this->mNodes.size();
+	for (int i{}; i < size; i++) {
+		dict.emplace(this->mNodes[i].nId, std::make_pair(this->mNodes[i].nPre1, this->mNodes[i].nPre2));
+		res.push_back(this->mNodes[i].nId);
+	}
+	for (auto& pair : dict) {
+		std::cout << pair.second.first << pair.second.second << std::endl;
+	}
+
 	
+
 	return list<int>();
 }
 
-#endif // DEBUG
+#endif
