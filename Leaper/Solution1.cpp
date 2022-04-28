@@ -31,9 +31,7 @@ int main()
 	std::cout << "Result2 is " << res2 << std::endl;
 }
 
-/*函数功能:
-	删除目标元素所属数值为 1 的连通区域, 并返回其大小.
-*/
+/*函数功能: 删除目标元素所属数值为 1 的连通区域, 并返回其大小.*/
 int Solution(vector<vector<int>>& mat, int nStartRow, int nStartCol)
 {
 	if (mat.size() <= 0) {

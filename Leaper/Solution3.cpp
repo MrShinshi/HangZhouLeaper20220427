@@ -59,14 +59,17 @@ list<int> Nodes::Solution()
 	unordered_map<int, std::pair<int, int>> dict;
 	list<int> res;
 	int size = this->mNodes.size();
-	for (int i{}; i < size; i++) {
-		dict.emplace(this->mNodes[i].nId, std::make_pair(this->mNodes[i].nPre1, this->mNodes[i].nPre2));
-		res.push_back(this->mNodes[i].nId);
-	}
-	for (auto& pair : dict) {
-		std::cout << pair.second.first << pair.second.second << std::endl;
+	for (const auto& node : this->mNodes) {
+		dict.emplace(node.nId, std::make_pair(node.nPre1, node.nPre2));
+		res.push_back(node.nId);
 	}
 
+	{
+
+
+	}
+
+	
 	
 
 	return list<int>();
