@@ -1,8 +1,9 @@
-﻿//#define DEBUG
+﻿#define DEBUG
 #ifdef DEBUG
 
 #include <iostream>
 #include <memory>
+#include <list>
 
 template<typename T>
 class Node
@@ -13,22 +14,22 @@ public:
 
 	Node(T v, Node::Ptr nextPtr) : mValue(v), mNextPtr(nextPtr) {}
 
-	T GetValue() const 
-	{ 
-		return mValue; 
+	T GetValue() const
+	{
+		return mValue;
 	}
 
-	void SetNext(Node::Ptr nextPtr) 
-	{ 
-		mNextPtr = nextPtr; 
+	void SetNext(Node::Ptr nextPtr)
+	{
+		mNextPtr = nextPtr;
 	}
 
-	Node::Ptr GetNext() 
+	Node::Ptr GetNext()
 	{
 		return mNextPtr;
 	}
 
-	static Node::Ptr MakeNode(T v, Node::Ptr nextPtr) 
+	static Node::Ptr MakeNode(T v, Node::Ptr nextPtr)
 	{
 		return std::make_shared<Node>(v, nextPtr);
 	}
@@ -38,6 +39,28 @@ private:
 	Node::Ptr mNextPtr;
 };
 
+template<typename T>
+class NodeList {
+public:
+	using Ptr = std::shared_ptr<Node<T>>;
+	using Wtr = std::weak_ptr<Node<T>>;
+	NodeList() :head(nullptr), tail(nullptr) {}
+	NodeList(T val) :head(new Node<T>(val)) {
+		this->tail = this->head;
+	}
+	bool Create(T val);//在链表末尾创建一个值为val的节点,并返回执行结果
+	Wtr Create(Wtr addr, T val);//在指定节点后插入一个值为val的节点,并返回执行结果
+	std::list<Wtr> Retrieve(T val);//在链表中查找所有值为val的节点,并返回其指针
+	T Retrieve(Wtr addr);//返回地址为addr的节点的值
+	bool Update(Wtr addr);//修改地址为addr的节点的值,并返回执行结果
+	bool Delete(Ptr addr);//删除地址为addr的节点,并返回执行结果
+private:
+	Ptr head;
+	Ptr tail;
+};
+
+
+using std::list;
 using IntNode = Node<int>;
 
 bool Solution(IntNode::Ptr headPtr);
@@ -59,6 +82,9 @@ int main()
 	node9->SetNext(node7);
 	bool bRet2 = Solution(node6);
 	std::cout << "Result 2 is " << std::boolalpha << bRet2;
+
+	NodeList<int> list;
+	list.Create(5);
 }
 
 bool Solution(IntNode::Ptr headPtr)
@@ -84,5 +110,60 @@ bool Solution(IntNode::Ptr headPtr)
 
 	return false;
 }
+
+template<typename T>
+bool NodeList<T>::Create(T val)
+{
+	try {
+		if (head == nullptr) {
+			head = std::shared_ptr<Node<T>>(new Node<T>(val, nullptr));
+			tail = head;
+		}
+		else {
+			tail->SetNext(std::shared_ptr<Node<T>>(new Node<T>(val, nullptr)));
+			tail = tail->GetNext();
+		}
+	}
+	catch (std::bad_alloc& e) {
+		std::cout << "申请内存失败" << std::endl;
+		std::cout << e.what() << std::endl;
+		return false;
+	}
+	return true;
+}
+
+template<typename T>
+std::weak_ptr<Node<T>> NodeList<T>::Create(Wtr addr, T val)
+{
+
+	return Wtr();
+}
+
+template<typename T>
+list<std::weak_ptr<Node<T>>> NodeList<T>::Retrieve(T val)
+{
+	return list<Wtr>();
+}
+
+template<typename T>
+T NodeList<T>::Retrieve(Wtr addr)
+{
+	return T();
+}
+
+template<typename T>
+bool NodeList<T>::Update(Wtr addr)
+{
+	return false;
+}
+
+template<typename T>
+bool NodeList<T>::Delete(Ptr addr)
+{
+	return false;
+}
+
+
+
 
 #endif

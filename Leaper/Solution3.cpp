@@ -58,9 +58,9 @@ void Show(list<int>& list) {
 	std::cout << std::endl;
 }
 
-class contradiction {
+class TRASH {
 public:
-	contradiction(int& code):code(code) {
+	TRASH(int& code):code(code) {
 
 	}
 	const int _getcode() const {
@@ -75,36 +75,45 @@ int main()
 	/* 例1 */
 	Nodes nodes1;
 
-	nodes1.AddNode(Node(6, 7, -1));
-	nodes1.AddNode(Node(7, 6, -1));
-	nodes1.AddNode(Node(1, -1, -1));
-	nodes1.AddNode(Node(2, 1, -1));
-	nodes1.AddNode(Node(3, 2, 1));
-	nodes1.AddNode(Node(4, 2, 5));
-	nodes1.AddNode(Node(5, 2, 1));
-
-	//下面这两行的内容构成矛盾,执行Solution时导致整个程序错误返回
-	//原因可能是爆栈,代码需要具备排查矛盾的功能
+	//递归层数过高导致栈溢出
+	//栈空间4MB时允许最大递归层数为736,扩容栈空间后才能达到1000
+	for (int i{}; i < 736; i++)
+		nodes1.AddNode(Node(i, i+1, -1));
+	
+	//下面两行的内容构成矛盾,执行Solution时导致爆栈,整个程序错误返回
+	//nodes1.AddNode(Node(1, 2, -1));
+	//nodes1.AddNode(Node(2, 1, -1));
+	//代码需要具备排查矛盾的功能
 	list<int> listId1 = nodes1.Solution(); 
 	Show(listId1);
 
 
 	/* 例2 */
 	Nodes nodes2;
-	nodes2.AddNode(Node(4, 13, -1));
-	nodes2.AddNode(Node(5, -1, 4));
-	nodes2.AddNode(Node(6, 7, -1));
-	nodes2.AddNode(Node(7, 4, 5));
-	nodes2.AddNode(Node(8, 5, 6));
-	nodes2.AddNode(Node(10, -1, -1));
-	nodes2.AddNode(Node(11, -1, -1));
-	nodes2.AddNode(Node(12, -1, -1));
-	nodes2.AddNode(Node(13, -1, -1));
+
+
+	nodes2.AddNode(Node(8, 7, -1));
+	nodes2.AddNode(Node(9, 8, -1));
+	nodes2.AddNode(Node(1, -1, -1));
+	nodes2.AddNode(Node(2, 1, -1));
+	nodes2.AddNode(Node(3, 2, -1));
+	nodes2.AddNode(Node(6, 5, -1));
+	nodes2.AddNode(Node(7, 6, -1));
+	nodes2.AddNode(Node(4, 3, -1));
+	nodes2.AddNode(Node(5, 4, -1));
 
 	list<int> listId2 = nodes2.Solution();
 	Show(listId2);
 }
 
+#define RECURRENCE
+
+#ifdef RECURRENCE
+
+//递归思路:
+//	如果该工序已存在于list中,则return									finish
+//	如果该工序两个需求都不在dict中,则直接list.push_front并return		finish
+//	如果该工序某个需求在dict中但不在list中,则将需求工序加入list			finish
 void AddList(List& list, Dict& dict, int code) {
 	
 	//若该工序已登记
@@ -112,7 +121,7 @@ void AddList(List& list, Dict& dict, int code) {
 		return;
 
 	if (dict[code].status == _CREATING) {
-		throw contradiction(code);
+		throw TRASH(code);
 		return;
 	}
 
@@ -143,7 +152,7 @@ void AddList(List& list, Dict& dict, int code) {
 			}
 		}
 	}
-	catch (contradiction& e) {
+	catch (TRASH& e) {
 		std::cout << std::endl << std::endl << "\tSolution执行异常:" << std::endl << std::endl;
 		std::cout << "\t\t工序 " << code << " - " << "工序 "<< e._getcode() << " 前置工序冲突" << std::endl << std::endl;
 		exit(-1);
@@ -155,10 +164,6 @@ void AddList(List& list, Dict& dict, int code) {
 	return;
 }
 
-//递归思路:
-//	如果该工序已存在于list中,则return									finish
-//	如果该工序两个需求都不在dict中,则直接list.push_front并return		finish
-//	如果该工序某个需求在dict中但不在list中,则将需求工序加入list			finish
 list<int> Nodes::Solution()
 {
 	List list;
@@ -175,4 +180,14 @@ list<int> Nodes::Solution()
 	return list;
 }
 
-#endif
+#endif // RECURRENCE
+
+#ifdef ITERATION
+
+list<int> Nodes::Solution() {
+
+}
+
+#endif // ITERATION
+
+#endif // DEBUG
