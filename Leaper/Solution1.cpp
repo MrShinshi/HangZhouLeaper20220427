@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
 
 #include <iostream>
@@ -20,18 +20,22 @@ int main()
 	std::cout << "Result1 is " << res1 << std::endl;
 
 	vector<vector<int>> mat2 = {
-		{ 1, 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1, 1 },
-		{ 1, 1, 1, 1, 1, 1, 1 }
+		{ 0, 1, 1, 0, 0, 1, 1 },
+		{ 1, 1, 1, 1, 1, 0, 1 },
+		{ 0, 1, 1, 0, 1, 0, 0 },
+		{ 0, 1, 0, 1, 1, 1, 0 },
+		{ 0, 1, 0, 0, 0, 0, 1 },
+		{ 0, 0, 1, 1, 1, 0, 0 }
 	};
 	int res2 = Solution(mat2, 5, 2);
 	std::cout << "Result2 is " << res2 << std::endl;
 }
 
-/*函数功能: 删除目标元素所属数值为 1 的连通区域, 并返回其大小.*/
+/*
+	函数功能: 返回目标元素所属数值为 1 的连通区域大小.
+	存在问题: 该连通区域会被删除.
+	优化方式: 1.
+*/
 int Solution(vector<vector<int>>& mat, int nStartRow, int nStartCol)
 {
 	if (mat.size() <= 0) {
@@ -59,6 +63,7 @@ int Solution(vector<vector<int>>& mat, int nStartRow, int nStartCol)
 	if (nStartCol < mat[0].size() - 1) {
 		res += Solution(mat, nStartRow, nStartCol + 1);
 	}
+	mat[nStartRow][nStartCol] = 1;
 
 	return res;
 }
