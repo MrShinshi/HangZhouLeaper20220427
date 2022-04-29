@@ -11,8 +11,7 @@ using std::list;
 using std::vector;
 using std::unordered_map;
 
-struct Info;
-
+typedef struct Info;
 typedef list<int> List;
 typedef unordered_map<int, Info> Dict;
 
