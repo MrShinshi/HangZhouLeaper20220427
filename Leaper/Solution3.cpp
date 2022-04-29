@@ -11,6 +11,9 @@ using std::list;
 using std::vector;
 using std::unordered_map;
 
+typedef list<int> List;
+typedef unordered_map<int, std::pair<int, int>> Dict;
+
 struct Node
 {
 	int nId;
@@ -35,44 +38,98 @@ private:
 	vector<Node> mNodes;
 };
 
+void Show(list<int>& list) {
+	for (int& n : list)
+		std::cout << n << ' ';
+	std::cout << std::endl;
+}
+
 int main()
 {
 	/* 例1 */
 	Nodes nodes1;
-	nodes1.AddNode(Node(1, -1, -1));
-	nodes1.AddNode(Node(2, 1, -1));
-	nodes1.AddNode(Node(3, 1, 2));
+	//nodes1.AddNode(Node(1, -1, -1));
+	//nodes1.AddNode(Node(2, 1, -1));
+	//nodes1.AddNode(Node(3, 2, 1));
+	//nodes1.AddNode(Node(4, 2, 5));
+	//nodes1.AddNode(Node(5, 2, 1));
 
-	list<int> listId1 = nodes1.Solution();
+	//下面这两行的内容构成矛盾,执行Solution时导致整个程序错误返回
+	//原因可能是爆栈,代码需要具备排查矛盾的功能
+	nodes1.AddNode(Node(6, 7, -1));
+	nodes1.AddNode(Node(7, 6, -1));
+	list<int> listId1 = nodes1.Solution(); 
+	Show(listId1);
+
 
 	/* 例2 */
 	Nodes nodes2;
-	nodes2.AddNode(Node(4, 1, -1));
+	nodes2.AddNode(Node(4, 13, -1));
 	nodes2.AddNode(Node(5, -1, 4));
-	nodes2.AddNode(Node(6, -1, -1));
+	nodes2.AddNode(Node(6, 7, -1));
+	nodes2.AddNode(Node(7, 4, 5));
+	nodes2.AddNode(Node(8, 5, 6));
+	nodes2.AddNode(Node(10, -1, -1));
+	nodes2.AddNode(Node(11, -1, -1));
+	nodes2.AddNode(Node(12, -1, -1));
+	nodes2.AddNode(Node(13, -1, -1));
 
 	list<int> listId2 = nodes2.Solution();
+	Show(listId2);
 }
 
+void AddList(List& list, Dict& dict, int code) {
+	
+	//若该工序已登记
+	if (find(list.begin(), list.end(), code) != list.end())
+		return;
+
+	bool isFirstExists{ dict.find(dict[code].first) != dict.end() };
+	bool isSecondExists{ dict.find(dict[code].second) != dict.end() };
+
+	//若该工序不存在需求,直接加入list
+	if (isFirstExists == false && isSecondExists == false) {
+		list.push_front(code);
+		return;
+	}
+
+	//若需求first存在,登记该需求
+	if (isFirstExists) {
+		if (find(list.begin(), list.end(), dict[code].first) == list.end()) {
+			AddList(list, dict, dict[code].first);
+		}
+	}
+
+	//若需求second存在,登记该需求
+	if (isSecondExists) {
+		if (find(list.begin(), list.end(), dict[code].second) == list.end()) {
+			AddList(list, dict, dict[code].second);
+		}
+	}
+
+	list.push_back(code);
+
+	return;
+}
+
+//递归思路:
+//	如果该工序已存在于list中,则return									finish
+//	如果该工序两个需求都不在dict中,则直接list.push_front并return		finish
+//	如果该工序某个需求在dict中但不在list中,则将需求工序加入list			finish
 list<int> Nodes::Solution()
 {
-	unordered_map<int, std::pair<int, int>> dict;
-	list<int> res;
-	int size = this->mNodes.size();
-	for (const auto& node : this->mNodes) {
+	List list;
+	Dict dict;
+
+	//将工序编号及需求加入字典
+	for (const auto& node : this->mNodes)
 		dict.emplace(node.nId, std::make_pair(node.nPre1, node.nPre2));
-		res.push_back(node.nId);
-	}
 
-	{
+	//构造链表
+	for(const auto& node : this->mNodes)
+		AddList(list, dict, node.nId);
 
-
-	}
-
-	
-	
-
-	return list<int>();
+	return list;
 }
 
 #endif
